@@ -17,6 +17,11 @@ module Tdb
       self.view_time = view_time
     end
 
+    def id
+      [self.stb, self.title, self.date].join
+    end
+
+    # TODO escape strings
     def to_s
       [stb, title, date, provider, rev, view_time].join("|")
     end
