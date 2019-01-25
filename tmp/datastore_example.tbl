@@ -1,6 +1,0 @@
-index={hash_of("stb1thematrix2014-04-01")=>3, hash_of("stb1unbreakable2014-04-03")=>4, hash_of("stb2the hobbit2014-04-02")=>5, hash_of("stb3the matrix2014-04-02")=>6}
-STB|TITLE|PROVIDER|DATE|REV|VIEW_TIME
-stb1|the matrix|warner bros|2014-04-01|4.00|1:30
-stb1|unbreakable|buena vista|2014-04-03|6.00|2:05
-stb2|the hobbit|warner bros|2014-04-02|8.00|2:45
-stb3|the matrix|warner bros|2014-04-02|4.00|1:05
