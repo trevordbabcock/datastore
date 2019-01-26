@@ -6,15 +6,20 @@ module Tdb
   class Record
     attr_accessor :stb, :title, :date, :provider, :rev, :view_time
 
-    def initialize(stb, title, date, provider=nil, rev=nil, view_time=nil)
-      validate_id(stb, title, date)
+    # required params - stb, title, date
+    def initialize(args)
+      if args["record_text"]
+        self.stb, self.title, self.provider, self.date, self.rev, self.view_time = args["record_text"].split("|")
+      else
+        self.stb = args["stb"]
+        self.title = args["title"]
+        self.date = args["date"]
+        self.provider = args["provider"]
+        self.rev = args["rev"]
+        self.view_time = args["view_time"]
+      end
 
-      self.stb = stb
-      self.title = title
-      self.date = date
-      self.provider = provider
-      self.rev = rev
-      self.view_time = view_time
+      validate_id(self.stb, self.title, self.date)
     end
 
     def id
@@ -23,7 +28,7 @@ module Tdb
 
     # TODO escape strings
     def to_s
-      [stb, title, date, provider, rev, view_time].join("|")
+      [stb, title, provider, date, rev, view_time].join("|")
     end
 
     protected
