@@ -1,19 +1,10 @@
 require "minitest/autorun"
 require "datastore/table"
-
-TEST_TMP_PATH = "#{File.expand_path(File.dirname(__FILE__))}/tmp"
+require_relative "constants"
 
 class TestComplexTable < Minitest::Test
-  # TODO de-dupe this code
-  def self.clear_test_tmp
-    puts "Clearing test/tmp directory..."
-    FileUtils.rm_rf Dir.glob("#{TEST_TMP_PATH}/*")
-  end
-
-  clear_test_tmp
-
   def test_table_overwrite_records
-    table = Tdb::Table.new("test2", ["stb", "title", "date", "provider", "rev", "view_time"])
+    table = Tdb::Table.new("complex_test")
     table.create
 
     records = [
@@ -33,11 +24,10 @@ class TestComplexTable < Minitest::Test
     table.write_records(more_records)
 
     [records, more_records[1]].flatten.each do |r|
-      assert(File.file?("#{TEST_TMP_PATH}/#{table.name}.tbl/#{Digest::SHA1.hexdigest(r.id)}"))
+      assert(File.file?("#{TestConstants::TEST_TMP_PATH}/#{table.name}.tbl/#{Digest::SHA1.hexdigest(r.id)}"))
     end
 
-    str = nil
-    File.open("#{TEST_TMP_PATH}/#{table.name}.tbl/#{Digest::SHA1.hexdigest(more_records[0].id)}", "r") do |f|
+    File.open("#{TestConstants::TEST_TMP_PATH}/#{table.name}.tbl/#{Digest::SHA1.hexdigest(more_records[0].id)}", "r") do |f|
       assert(f.gets.include?("UPDATED FIELD"))
     end
   end
