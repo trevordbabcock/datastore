@@ -4,7 +4,7 @@ Possible solutions:
 Rationale: Turns out this won't work because IOStreams in Ruby don't allow you to seek quickly to a given line (was hoping for complexity O(1)), nor do they allow you to overwrite a single line (you would have to overwrite the entire rest of the file).
 
 
-2. Use regex to find preexisting records that should be replaced. Otherwise append to files.
+2. Use regex to find preexisting records that should be replaced. Otherwise append to file.
 
 Rationale: My gut tells me this is terrible. Would scale poorly with very large numbers of records. Complexity O(n) or worse.
 
