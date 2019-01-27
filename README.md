@@ -15,3 +15,6 @@ I don't like the idea of having a file for each record, but it satisfies the con
 
 
 Going with option 3.
+
+
+Final word: Option 3 ended up working as expected, except it didn't end up needing an index to track filenames (that was an unnecessary holdover from Option 1).
