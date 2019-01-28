@@ -37,7 +37,7 @@ end
 table = Tdb::Table.new("media_usage", "#{project_root_path}/tmp")
 
 table.create unless File.exist?("#{project_root_path}/tmp/#{table.name}.tbl")
-table.write_records(records)
+table.write(records)
 
 puts "Data has been imported into #{project_root_path}/tmp/#{table.name}.tbl."
 

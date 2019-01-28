@@ -4,6 +4,7 @@ module Tdb
   end
 
   class Record
+    # TODO move these to a subclass of Record
     attr_accessor :stb, :title, :date, :provider, :rev, :view_time
 
     # required params - stb, title, date OR record_text

@@ -11,7 +11,7 @@ Rationale: My gut tells me this is terrible. Might scale poorly with very large 
 
 3. Save each record as a separate file. Have one file that is an index that maps a hash of record ID to a file name. This allows 'quick' access to a specific file (as quick as the OS can manage). Importantly, read speed should not be affected by the number of records that are already stored (complexity O(1)). However, writing many records and especially reads will be rather slow due to opening and closing tons of files in quick succession. This solution leans on the OS being quick at opening and closing files.
 
-I don't like the idea of having a file for each record, but it satisfies the constraints of the assignment. It also could likely be optimized in a few ways, if necessary, such as aggregating a certain number of records into one file/page, sort of a mix of option 1 and option 3.
+Rationale: I don't like the idea of having a file for each record, but it satisfies the constraints of the assignment. It also could likely be optimized in a few ways, if necessary, such as aggregating a certain number of records into one file/page, sort of a mix of option 1 and option 3.
 
 
 Going with option 3.

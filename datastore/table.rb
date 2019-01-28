@@ -48,7 +48,7 @@ module Tdb
       matched_records
     end
 
-    def write_records(records)
+    def write(records)
       records.each do |record|
         write_record(record)
       end
