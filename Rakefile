@@ -11,7 +11,6 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-# TODO add rake clean to clear out tmp
 task :clean do
   FileUtils.rm_rf Dir.glob("#{PROJECT_ROOT}/test/tmp/*")
   puts "Done cleaning."
