@@ -1,3 +1,8 @@
+echo "./import -f ../input_data"
+./import -f ../input_data
+
+echo ""
+
 echo "./query -s TITLE,REV,DATE -o DATE,TITLE"
 ./query -s TITLE,REV,DATE -o DATE,TITLE
 
