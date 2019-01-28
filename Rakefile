@@ -4,6 +4,7 @@ require 'fileutils'
 PROJECT_ROOT = File.expand_path(File.dirname(__FILE__))
 
 Rake::TestTask.new do |t|
+  FileUtils.rm_rf Dir.glob("#{PROJECT_ROOT}/tmp/*")
   FileUtils.rm_rf Dir.glob("#{PROJECT_ROOT}/test/tmp/*")
   t.libs << PROJECT_ROOT
   t.test_files = FileList["test/test*.rb"]

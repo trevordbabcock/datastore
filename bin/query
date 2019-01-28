@@ -15,11 +15,11 @@ OptionParser.new do |parser|
   parser.banner = "Usage: query"
 
   parser.on("-s", "--select a,b,c", Array, "Fields to select") do |o|
-    options[:select] = o
+    options["select"] = o.collect {|s| s = s.downcase}
   end
 
   parser.on("-o", "--order a,b", Array, "Fields to order by") do |o|
-    options[:order] = o
+    options["order"] = o.collect {|o| o = o.downcase}
   end
 
   parser.on("-f", "--filter [STR]", "Filter fields with this value") do |o|
@@ -27,10 +27,16 @@ OptionParser.new do |parser|
 
     o.split(",").each do |kvp|
       kvp_array = kvp.split("=")
-      options_hash[kvp_array[0]] = kvp_array[1]
+      options_hash[kvp_array[0].downcase] = kvp_array[1]
     end
 
-    options[:filter] = options_hash
+    options["filter"] = options_hash
   end
 end.parse!
 
+table = Tdb::Table.new("media_usage", "#{project_root_path}/tmp")
+records = table.query("orders"=>options["order"], "filters"=>options["filter"])
+
+records.each do |r|
+  puts r.to_s("selections"=>options["select"], "delimiter"=>",")
+end

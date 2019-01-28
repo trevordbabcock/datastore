@@ -12,25 +12,32 @@ require "datastore/table"
 options = {}
 
 OptionParser.new do |parser|
-  parser.banner = "Usage: query"
+  parser.banner = "Usage: import -f filename"
 
-  parser.on("-s", "--select a,b,c", Array, "Fields to select") do |o|
-    options[:select] = o
-  end
-
-  parser.on("-o", "--order a,b", Array, "Fields to order by") do |o|
-    options[:order] = o
-  end
-
-  parser.on("-f", "--filter [STR]", "Filter fields with this value") do |o|
-    options_hash = {}
-
-    o.split(",").each do |kvp|
-      kvp_array = kvp.split("=")
-      options_hash[kvp_array[0]] = kvp_array[1]
-    end
-
-    options[:filter] = options_hash
+  parser.on("-f", "--file STR", "File containing data to import") do |o|
+    options[:file] = o
   end
 end.parse!
+
+raise "must specify file like so: `import -f filename`" unless options[:file]
+
+input_data = nil
+
+File.open(options[:file], "r") do |f|
+  input_data = f.readlines
+end
+
+input_data.shift # ignore first line because its just the headers
+records = []
+
+input_data.each do |l|
+  records << Tdb::Record.new("record_text"=>l)
+end
+
+table = Tdb::Table.new("media_usage", "#{project_root_path}/tmp")
+
+table.create unless File.exist?("#{project_root_path}/tmp/#{table.name}.tbl")
+table.write_records(records)
+
+puts "Data has been imported into #{project_root_path}/tmp/#{table.name}.tbl."
 
