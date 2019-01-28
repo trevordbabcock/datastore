@@ -6,7 +6,7 @@ Rationale: Turns out this won't work because IOStreams in Ruby don't allow you t
 
 2. Use regex to find preexisting records that should be replaced. Otherwise append to file.
 
-Rationale: My gut tells me this is terrible. Would scale poorly with very large numbers of records. Complexity O(n) or worse.
+Rationale: My gut tells me this is terrible. Might scale poorly with very large numbers of records, depending on how the regex engine is optimized. Search would be complexity O(n) or worse.
 
 
 3. Save each record as a separate file. Have one file that is an index that maps a hash of record ID to a file name. This allows 'quick' access to a specific file (as quick as the OS can manage). Importantly, read speed should not be affected by the number of records that are already stored (complexity O(1)). However, writing many records and especially reads will be rather slow due to opening and closing tons of files in quick succession. This solution leans on the OS being quick at opening and closing files.
@@ -17,4 +17,4 @@ I don't like the idea of having a file for each record, but it satisfies the con
 Going with option 3.
 
 
-Final word: Option 3 ended up working as expected, except it didn't end up needing an index to track filenames (that was an unnecessary holdover from Option 1).
+Final word: Option 3 ended up working as expected, except it didn't end up needing an index to track filenames (that was an unnecessary holdover from Option 1). I chose this option because it seemed closer to how a real database probably works.
